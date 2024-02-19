@@ -63,10 +63,11 @@ jobs:
           targetPlatform: WebGL
       
       # Output to build folder
-      - uses: actions/upload-artifact@v3
+      - name: Upload WebGL artifact
+        uses: actions/upload-artifact@v4
         with:
           name: build-WebGL
-          path: build/WebGL
+          path: build/
 
   buildWindows:
     needs: testRunner
@@ -99,7 +100,7 @@ jobs:
           targetPlatform: StandaloneWindows64
 
       # Output to build folder
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
@@ -117,10 +118,10 @@ jobs:
 
       # Download artifact
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.2
+        uses: actions/download-artifact@v4
         with:
           name: build-WebGL
-          path: build
+          path: build/
 
       # Deploy to Github Pages
       - name: Deploy to GitHub Pages
