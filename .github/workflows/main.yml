@@ -3,8 +3,8 @@ name: Actions 😎
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Build my project ✨
+  testRunner:
+    name: Test my project
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
@@ -32,3 +32,34 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
             
+  buildWebGL:
+    needs: testRunner
+    name: Build for WebGL 🖥️
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Build
+      - uses: game-ci/unity-builder@v2
+        with:
+          targetPlatform: WebGL
+      
+      # Output to build folder
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-WebGL
+          path: build/WebGL
