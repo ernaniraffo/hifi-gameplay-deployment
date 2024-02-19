@@ -7,4 +7,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      - name: Unity - Activate
+        uses: game-ci/unity-activate@v2.0.0
             
