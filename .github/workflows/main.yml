@@ -103,3 +103,28 @@ jobs:
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
+
+  deployPages:
+    needs: buildWebGL
+    name: Deploy WebGL build to Github Pages
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Download artifact
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.1.2
+        with:
+          name: build-WebGL
+          path: build
+
+      # Deploy to Github Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          branch: gh-pages
+          folder: build/WebGL
