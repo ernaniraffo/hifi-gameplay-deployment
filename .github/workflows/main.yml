@@ -121,7 +121,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-WebGL
-          path: build/WebGL
+          path: build
 
       # Deploy to Github Pages
       - name: Deploy to GitHub Pages
