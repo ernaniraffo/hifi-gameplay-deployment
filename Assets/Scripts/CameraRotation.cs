@@ -33,6 +33,7 @@ public class RotateCamera : MonoBehaviour
         return rotating;
     }
 
+    // https://forum.unity.com/threads/rotating-exactly-90-degrees-specific-direction-answered.44056/
     IEnumerator Rotate(Transform thisTransform, Transform otherTransform, Vector3 rotateAxis, float degrees, float totalTime)
     {
         rotating = true;
